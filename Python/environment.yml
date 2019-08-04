@@ -1,0 +1,6 @@
+name: nm4p
+dependencies:
+- python
+- jupyter
+- matplotlib
+- scipy
