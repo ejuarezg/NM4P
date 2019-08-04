@@ -6,10 +6,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #* Select the numerical method to use: Euler or Verlet
-NumericalMethod = input('Choose a numerical method (1: Euler; 2: Verlet): ')
+NumericalMethod = int(input('Choose a numerical method (1: Euler; 2: Verlet): '))
 
 #* Set initial position and velocity of pendulum
-theta0 = input('Enter initial angle (in degrees): ')
+theta0 = float(input('Enter initial angle (in degrees): '))
 theta = theta0 * np.pi /180     # Convert angle to radians
 omega = 0.0                     # Set the initial velocity
 
@@ -17,7 +17,7 @@ omega = 0.0                     # Set the initial velocity
 g_over_L = 1.0            # The constant g/L
 time = 0.0                # Initial time
 irev = 0                  # Used to count number of reversals
-tau = input('Enter time step: ')
+tau = float(input('Enter time step: '))
 
 #* Take one backward step to start Verlet
 accel = -g_over_L * np.sin(theta)    # Gravitational acceleration
@@ -25,7 +25,7 @@ theta_old = theta - omega*tau + 0.5*accel*tau**2
 
 #* Loop over desired number of steps with given time step
 #    and numerical method
-nstep = input('Enter number of time steps: ')
+nstep = int(input('Enter number of time steps: '))
 t_plot = np.empty(nstep)
 th_plot = np.empty(nstep)
 period = np.empty(nstep)   # Used to record period estimates
@@ -51,7 +51,7 @@ for istep in range(nstep):
     #* Test if the pendulum has passed through theta = 0;
     #    if yes, use time to estimate period
     if theta*theta_old < 0 :  # Test position for sign change
-        print 'Turning point at time t = ',time
+        print('Turning point at time t = ',time)
         if irev == 0 :          # If this is the first change,
             time_old = time     # just record the time
         else:
@@ -63,7 +63,7 @@ for istep in range(nstep):
 nPeriod = irev-1    # Number of times the period was measured
 AvePeriod = np.mean( period[0:nPeriod] )
 ErrorBar = np.std(period[0:nPeriod]) / np.sqrt(nPeriod)
-print 'Average period = ', AvePeriod, ' +/- ', ErrorBar
+print('Average period = ', AvePeriod, ' +/- ', ErrorBar)
 
 # Graph the oscillations as theta versus time
 plt.plot(t_plot, th_plot, '+')
