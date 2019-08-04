@@ -28,8 +28,8 @@ def gravrk(s,t,GM):
     return deriv
 
 #* Set initial position and velocity of the comet.
-r0 = input('Enter initial radial distance (AU): ')  
-v0 = input('Enter initial tangential velocity (AU/yr): ')
+r0 = float(input('Enter initial radial distance (AU): '))
+v0 = float(input('Enter initial tangential velocity (AU/yr): '))
 r = np.array([r0, 0])
 v = np.array([0, v0])
 state = np.array([ r[0], r[1], v[0], v[1] ])   # Used by R-K routines
@@ -42,10 +42,10 @@ time = 0.0
 
 #* Loop over desired number of steps using specified
 #  numerical method.
-nStep = input('Enter number of steps: ')
-tau = input('Enter time step (yr): ')
-NumericalMethod = input(
-    'Choose a numerical method: 1) Euler; 2) Euler-Cromer; 3) Runge-Kutta; 4) Adaptive R-K')
+nStep = int(input('Enter number of steps: '))
+tau = float(input('Enter time step (yr): '))
+NumericalMethod = int(input(
+    'Choose a numerical method: 1) Euler; 2) Euler-Cromer; 3) Runge-Kutta; 4) Adaptive R-K'))
 rplot = np.empty(nStep)           
 thplot = np.empty(nStep)
 tplot = np.empty(nStep)
@@ -93,7 +93,7 @@ plt.show()
 #* Graph the energy of the comet versus time.
 totalE = kinetic + potential   # Total energy
 plt.plot(tplot,kinetic,'-.',tplot,potential,'--',tplot,totalE,'-')
-plt.legend(['Kinetic','Potential','Total']);
+plt.legend(['Kinetic','Potential','Total'])
 plt.xlabel('Time (yr)')
 plt.ylabel(r'Energy ($M AU^2/yr^2$)')
 plt.show()

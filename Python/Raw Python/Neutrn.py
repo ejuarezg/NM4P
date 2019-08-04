@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 
 
 #* Initialize parameters (time step, grid points, etc.).
-tau = input('Enter time step: ')
-N = input('Enter the number of grid points: ')
-L = input('Enter system length: ')
+tau = float(input('Enter time step: '))
+N = int(input('Enter the number of grid points: '))
+L = float(input('Enter system length: '))
 # The system extends from x=-L/2 to x=L/2
 h = L/float(N-1)   # Grid size
 D = 1.    # Diffusion coefficient
@@ -17,9 +17,9 @@ C = 1.    # Generation rate
 coeff = D*tau/h**2
 coeff2 = C*tau 
 if coeff < 0.5 :
-    print 'Solution is expected to be stable'
+    print('Solution is expected to be stable')
 else:
-    print 'WARNING: Solution is expected to be unstable'
+    print('WARNING: Solution is expected to be unstable')
 
 #* Set initial and boundary conditions.
 nn = np.zeros(N)           # Initialize density to zero at all points
@@ -30,7 +30,7 @@ nn[int(N/2.)] = 1/h        # Initial cond. is delta function in center
 #* Set up loop and plot variables.
 xplot = np.arange(N)*h - L/2.    # Record the x scale for plots
 iplot = 0                        # Counter used to count plots
-nstep = input('Enter number of time steps: ')
+nstep = int(input('Enter number of time steps: '))
 nplots = 50                # Number of snapshots (plots) to take
 plot_step = nstep/nplots   # Number of time steps between plots
 
@@ -51,7 +51,7 @@ for istep in range(nstep):     ## MAIN LOOP ##
         tplot[iplot] = (istep+1)*tau   # Record time for plots
         nAve[iplot] = np.mean(nn)      # Record average density 
         iplot += 1 
-        print 'Finished ', istep, ' of ', nstep, ' steps'
+        print('Finished ', istep, ' of ', nstep, ' steps')
 
 
 #* Plot density versus x and t as a 3D-surface plot
@@ -64,8 +64,8 @@ Tp, Xp = np.meshgrid(tplot, xplot)
 ax.plot_surface(Tp, Xp, nnplot, rstride=2, cstride=2, cmap=cm.gray)
 ax.set_xlabel('Time')
 ax.set_ylabel('x')
-ax.set_zlabel('n(x,t)');
-ax.set_title('Neutron diffusion');
+ax.set_zlabel('n(x,t)')
+ax.set_title('Neutron diffusion')
 plt.show()
 
 #* Plot average neutron density versus time

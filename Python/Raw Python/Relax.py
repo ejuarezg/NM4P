@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 
 #* Initialize parameters (system size, grid spacing, etc.)
-method = input('Choose numerical method, 1) Jacobi; 2) Gauss-Seidel; 3) SOR')
-N = input('Enter number of grid points on a side: ')
+method = int(input('Choose numerical method, 1) Jacobi; 2) Gauss-Seidel; 3) SOR'))
+N = int(input('Enter number of grid points on a side: '))
 L = 1.            # System size (length)
 h = L/(N-1)       # Grid spacing
 x = np.arange(N)*h   # x coordinate
@@ -17,8 +17,8 @@ y = np.arange(N)*h   # y coordinate
 #* Select over-relaxation factor (SOR only)
 if method == 3 :
     omegaOpt = 2./(1.+np.sin(np.pi/N))    # Theoretical optimum
-    print 'Theoretical optimum omega = ', omegaOpt
-    omega = input('Enter desired omega: ')
+    print('Theoretical optimum omega = ', omegaOpt)
+    omega = float(input('Enter desired omega: '))
 
 #* Set initial guess as first term in separation of variables soln.
 phi0 = 1.     # Potential at y=L
@@ -33,15 +33,15 @@ phi[0,:] = 0.
 phi[-1,:] = 0.
 phi[:,0] = 0.
 phi[:,-1] = phi0*np.ones(N)    
-print 'Potential at y=L equals ', phi0
-print 'Potential is zero on all other boundaries'
+print('Potential at y=L equals ', phi0)
+print('Potential is zero on all other boundaries')
 
 #* Loop until desired fractional change per iteration is obtained
 newphi = np.copy(phi)    # Copy of the solution (used only by Jacobi)
 iterMax = N**2           # Set max to avoid excessively long runs
 change = np.empty(iterMax)
 changeDesired = 1.e-4    # Stop when the change is given fraction
-print 'Desired fractional change = ', changeDesired
+print('Desired fractional change = ', changeDesired)
 for iter in range(iterMax) :
     changeSum = 0
   
@@ -73,11 +73,11 @@ for iter in range(iterMax) :
     #* Check if fractional change is small enough to halt the iteration
     change[iter] = changeSum/(N-2)**2
     if (iter+1) % 10 < 1 :
-        print 'After ', iter+1, ' iterations, fractional change = ', change[iter]
+        print('After ', iter+1, ' iterations, fractional change = ', change[iter])
 
     if change[iter] < changeDesired : 
-        print 'Desired accuracy achieved after ', iter+1, ' iterations' 
-        print 'Breaking out of main loop'
+        print('Desired accuracy achieved after ', iter+1, ' iterations')
+        print('Breaking out of main loop')
         break
 
 

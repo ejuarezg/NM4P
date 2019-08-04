@@ -21,15 +21,15 @@ T = 273.               # Temperature (K)
 density = 2.685e25     # Number density of argon at STP (m^-3)
 L = 1.e-6              # System size is one micron
 Volume = L**3          # Volume of the system (m^3)
-npart = input('Enter number of simulation particles: ')
+npart = int(input('Enter number of simulation particles: '))
 eff_num = density*Volume/npart
-print 'Each simulation particle represents ', eff_num, ' atoms'
+print('Each simulation particle represents ', eff_num, ' atoms')
 mfp = Volume/(np.sqrt(2.)*np.pi*diam**2*npart*eff_num)
-print 'System width is ', L/mfp, ' mean free paths'
+print('System width is ', L/mfp, ' mean free paths')
 mpv = np.sqrt(2*boltz*T/mass)   # Most probable initial velocity 
-vwall_m = input('Enter wall velocity as Mach number: ')
+vwall_m = float(input('Enter wall velocity as Mach number: '))
 vwall = vwall_m * np.sqrt(5./3. * boltz*T/mass)
-print 'Wall velocities are ', -vwall, ' and ', vwall, ' m/s'
+print('Wall velocities are ', -vwall, ' and ', vwall, ' m/s')
 
 #* Assign random positions and velocities to particles
 np.random.seed(0)          # Initialize random number generator
@@ -62,7 +62,7 @@ dverr = np.zeros(2)       # Used to find error in dvtot
 #* Loop for the desired number of time steps
 colSum = 0
 strikeSum = np.array([0, 0])
-nstep = input('Enter total number of time steps: ')
+nstep = int(input('Enter total number of time steps: '))
 for istep in range(nstep) :
 
     #* Move all the particles 
@@ -85,8 +85,8 @@ for istep in range(nstep) :
 
     #* Periodically display the current progress
     if (istep+1) % 100 < 1 :
-        print 'Finished ', istep, ' of ', nstep, ' steps, Collisions = ',colSum
-        print 'Total wall strikes: ', strikeSum[0], ' (left)  ', strikeSum[1], ' (right)'
+        print('Finished ', istep, ' of ', nstep, ' steps, Collisions = ',colSum)
+        print('Total wall strikes: ', strikeSum[0], ' (left)  ', strikeSum[1], ' (right)')
 
 
 #* Normalize the accumulated statistics
@@ -102,15 +102,15 @@ dverr = np.sqrt(dverr*nsamp)
 #* Compute viscosity from drag force on the walls
 force = (eff_num*mass*dvtot)/(tsamp*L**2)
 ferr = (eff_num*mass*dverr)/(tsamp *L**2)
-print 'Force per unit area is'
-print 'Left wall:   ', force[0], ' +/- ', ferr[0]  
-print 'Right wall:  ', force[1], ' +/- ', ferr[1]  
-vgrad = 2*vwall/L;  # Velocity gradient
+print('Force per unit area is')
+print('Left wall:   ', force[0], ' +/- ', ferr[0])
+print('Right wall:  ', force[1], ' +/- ', ferr[1])
+vgrad = 2*vwall/L  # Velocity gradient
 visc = 1./2.*(-force[0]+force[1])/vgrad   # Average viscosity
 viscerr = 1./2.*(ferr[0]+ferr[1])/vgrad   # Error
-print 'Viscosity = ', visc, ' +/- ', viscerr, ' N s/m^2'
+print('Viscosity = ', visc, ' +/- ', viscerr, ' N s/m^2')
 eta = 5.*np.pi/32.*mass*density*(2./np.sqrt(np.pi)*mpv)*mfp
-print 'Theoretical value of viscoisty is ', eta, ' N s/m^2'
+print('Theoretical value of viscoisty is ', eta, ' N s/m^2')
 
 #* Plot average density, velocity and temperature
 xcell = (np.arange(ncell)+0.5)/ncell * L

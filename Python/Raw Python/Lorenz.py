@@ -4,6 +4,7 @@
 # Set up configuration options and special features
 import numpy as np
 import matplotlib.pyplot as plt
+from extra.input_parser import arrayParser
 
 from nm4p.rk4 import rk4
 from nm4p.rka import rka
@@ -34,8 +35,8 @@ def lorzrk(s,t,param):
 
 
 #* Set initial state x,y,z and parameters r,sigma,b
-state = np.array(input('Enter the initial position [x, y, z]: '))
-r = input('Enter the parameter r: ')
+state = arrayParser(input('Enter the initial position [x, y, z] without square brackets: '))
+r = float(input('Enter the parameter r: '))
 sigma = 10.    # Parameter sigma
 b = 8./3.      # Parameter b
 param = np.array([r, sigma, b])  # Vector of parameters passed to rka
@@ -44,7 +45,7 @@ err = 1.e-3    # Error tolerance
 
 #* Loop over the desired number of steps
 time = 0.
-nstep = input('Enter number of steps: ')
+nstep = int(input('Enter number of steps: '))
 tplot = np.empty(nstep)
 tauplot = np.empty(nstep)
 xplot, yplot, zplot = np.empty(nstep), np.empty(nstep), np.empty(nstep)
@@ -56,7 +57,7 @@ for istep in range(nstep):
     tauplot[istep] = tau       
     xplot[istep] = x;    yplot[istep] = y;    zplot[istep] = z 
     if (istep+1) % 50  < 1 :
-        print 'Finished ',istep, ' steps out of ',nstep
+        print('Finished ',istep, ' steps out of ',nstep)
 
     #* Find new state using adaptive Runge-Kutta
     [state, time, tau] = rka(state, time, tau, err, lorzrk, param)
@@ -65,7 +66,7 @@ for istep in range(nstep):
 #* Print max and min time step returned by rka
 tauMax = np.max(tauplot[1:nstep])
 tauMin = np.min(tauplot[1:nstep])
-print 'Adaptive time step: Max = ', tauMax, ' Min = ', tauMin
+print('Adaptive time step: Max = ', tauMax, ' Min = ', tauMin)
 
 #* Graph the time series x(t)
 plt.plot(tplot,xplot,'-')

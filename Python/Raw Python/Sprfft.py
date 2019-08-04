@@ -4,6 +4,7 @@
 # Set up configuration options and special features
 import numpy as np
 import matplotlib.pyplot as plt
+from extra.input_parser import arrayParser
 
 from nm4p.rk4 import rk4
 
@@ -31,11 +32,11 @@ def sprrk(s,t,param):
 
 
 #* Set parameters for the system (initial positions, etc.).
-x = np.array(input('Enter initial displacement [x0, x1, x2]: '))  
+x = arrayParser(input('Enter initial displacement [x0, x1, x2] without square brackets: '))
 v = np.array([0., 0., 0.])       # Masses are initially at rest
 # Positions and velocities; used by rk4
 state = np.array([x[0], x[1], x[2], v[0], v[1], v[2]])      
-tau = input('Enter timestep: ')  
+tau = float(input('Enter timestep: '))
 k_over_m = 1.               # Ratio of spring const. over mass
 
 #* Loop over the desired number of time steps.
@@ -54,7 +55,7 @@ for istep in range(nstep):  ### MAIN LOOP ###
     xplot[istep,:] = np.copy(state[0:3])   # Record positions
     tplot[istep] = time
     if istep % nprint < 1 :
-        print 'Finished ', istep, ' out of ', nstep, ' steps'
+        print('Finished ', istep, ' out of ', nstep, ' steps')
 
 
 #* Graph the displacements of the three masses.

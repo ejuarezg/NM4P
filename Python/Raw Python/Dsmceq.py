@@ -17,9 +17,9 @@ diam = 3.66e-10        # Effective diameter of argon atom (m)
 T = 273.               # Temperature (K)
 density = 1.78         # Density of argon at STP (kg/m^3)
 L = 1.e-6              # System size is one micron
-npart = input('Enter number of simulation particles: ')
+npart = int(input('Enter number of simulation particles: '))
 eff_num = density/mass * L**3 /npart
-print 'Each particle represents ', eff_num, ' atoms'
+print('Each particle represents ', eff_num, ' atoms')
 
 #* Assign random positions and velocities to particles
 np.random.seed(0)          # Initialize random number generator
@@ -52,7 +52,7 @@ sortData = sortList(ncell, npart)
 
 
 #* Loop for the desired number of time steps
-nstep = input('Enter total number of time steps: ')
+nstep = int(input('Enter total number of time steps: '))
 for istep in range(nstep) :
 
     #* Move all the particles ballistically
@@ -60,7 +60,7 @@ for istep in range(nstep) :
     x = np.remainder( x+L, L)   # Periodic boundary conditions
 
     #* Sort the particles into cells
-    sorter(x,L,sortData);
+    sorter(x,L,sortData)
   
     #* Evaluate collisions among the particles
     col = colider(v,vrmax,tau,selxtra,coeff,sortData)

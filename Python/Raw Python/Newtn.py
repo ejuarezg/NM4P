@@ -4,6 +4,7 @@
 # Set up configuration options and special features
 import numpy as np
 import matplotlib.pyplot as plt
+from extra.input_parser import arrayParser
 
 # Define the function f(x,a) used for root finding
 def fnewt(x,a):
@@ -38,9 +39,9 @@ def fnewt(x,a):
 
 
 #* Set initial guess and parameters
-x0 = np.array(input('Enter the initial guess (row vector): '))
+x0 = arrayParser(input('Enter the initial guess (row vector) without square brackets: '))
 x = np.copy(x0)     # Copy initial guess
-a = np.array(input('Enter the parameter a: '))
+a = float(np.array(input('Enter the parameter a: ')))
 
 #* Loop over desired number of steps 
 nStep = 10    # Number of iterations before stopping
@@ -60,8 +61,8 @@ for iStep in range(nStep):
 
 
 #* Print the final estimate for the root
-print 'After', nStep, ' iterations the root is'
-print x
+print('After', nStep, ' iterations the root is')
+print(x)
 
 # %* Plot the iterations from initial guess to final estimate
 from mpl_toolkits.mplot3d import Axes3D

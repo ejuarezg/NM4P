@@ -13,7 +13,7 @@ def tri_ge(a,b) :
     N_a = np.shape(a)
     N = len(b)
     if N_a[0] != N or N_a[1] != 3 :
-        print 'Problem in tri_GE, inputs are incompatible'
+        print('Problem in tri_GE, inputs are incompatible')
         return None
 
     #* Unpack diagonals of triangular matrix into vectors

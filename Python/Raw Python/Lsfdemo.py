@@ -6,15 +6,16 @@ import matplotlib.pyplot as plt
 
 from nm4p.linreg import linreg
 from nm4p.pollsf import pollsf
+from extra.input_parser import arrayParser
 
 #* Initialize data to be fit. Data is quadratic plus random number.
-print 'Curve fit data is created using the quadratic'
-print '  y(x) = c(0) + c(1)*x + c(2)*x**2'
-c = np.array(input('Enter the coefficients as [c(0), c(1), c(2)]: '))
-N = 50;                 # Number of data points
+print('Curve fit data is created using the quadratic')
+print('  y(x) = c(0) + c(1)*x + c(2)*x**2')
+c = arrayParser(input('Enter the coefficients as [c(0), c(1), c(2)] without square brackets: '))
+N = 50                  # Number of data points
 x = np.arange(1,N+1)    # x = [1, 2, ..., N]
 y = np.empty(N)
-alpha = input('Enter estimated error bar: ')
+alpha = float(input('Enter estimated error bar: '))
 sigma = alpha * np.ones(N)  # Constant error bar
 np.random.seed(0)           # Initialize random number generator
 for i in range(N):
@@ -22,7 +23,7 @@ for i in range(N):
     y[i] = c[0] + c[1]*x[i] + c[2]*x[i]**2 + r       
 
 #* Fit the data to a straight line or a more general polynomial
-M = input('Enter number of fit parameters (=2 for line): ')
+M = int(input('Enter number of fit parameters (=2 for line): '))
 if M == 2 :  
     #* Linear regression (Straight line) fit
     [a_fit, sig_a, yy, chisqr] = linreg(x, y, sigma)
@@ -32,9 +33,9 @@ else:
 
 
 #* Print out the fit parameters, including their error bars.
-print 'Fit parameters:'
+print('Fit parameters:')
 for i in range(M):
-    print ' a[', i, '] = ', a_fit[i], ' +/- ', sig_a[i]
+    print(' a[', i, '] = ', a_fit[i], ' +/- ', sig_a[i])
 
 #* Graph the data, with error bars, and fitting function.
 plt.errorbar(x,y,sigma,None,'o')   # Graph data with error bars

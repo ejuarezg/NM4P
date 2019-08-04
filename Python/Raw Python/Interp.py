@@ -4,6 +4,7 @@
 # Set up configuration options and special features
 import numpy as np
 import matplotlib.pyplot as plt
+from extra.input_parser import arrayParser
 
 def intrpf(xi,x,y):
     """Function to interpolate between data points
@@ -25,14 +26,14 @@ def intrpf(xi,x,y):
 #* Initialize the data points to be fit by quadratic
 x = np.empty(3)
 y = np.empty(3)
-print 'Enter data points as x,y pairs (e.g., [1, 2])'
+print('Enter data points as x,y pairs (e.g., [1, 2] without square brackets)')
 for i in range(3):
-    temp = np.array(input('Enter data point: '))
+    temp = arrayParser(input('Enter data point: '))
     x[i] = temp[0]
     y[i] = temp[1]
 
 #* Establish the range of interpolation (from x_min to x_max)
-xr = np.array(input('Enter range of x values as [x_min, x_max]: '))
+xr = arrayParser(input('Enter range of x values as [x_min, x_max] without square brackets: '))
 
 #* Find yi for the desired interpolation values xi using
 #  the function intrpf

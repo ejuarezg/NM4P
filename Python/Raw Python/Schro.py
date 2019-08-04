@@ -8,13 +8,13 @@ import matplotlib.pyplot as plt
 
 #* Initialize parameters (grid spacing, time step, etc.)
 i_imag = 1j             # Imaginary i
-N = input('Enter number of grid points: ');
+N = int(input('Enter number of grid points: '))
 L = 100.                # System extends from -L/2 to L/2
 h = L/(N-1)             # Grid size
 x = np.arange(N)*h - L/2.  # Coordinates  of grid points
 h_bar = 1.              # Natural units
 mass = 1.               # Natural units
-tau = input('Enter time step: ')
+tau = float(input('Enter time step: '))
 
 #* Set up the Hamiltonian operator matrix
 ham = np.zeros((N,N))     # Set all elements to zero
@@ -68,7 +68,7 @@ for iter in range(max_iter) :
     if (iter+1) % plot_iter < 1 :   
         iplot += 1
         p_plot[:,iplot] = np.absolute(psi[:])**2 
-        plt.plot(x,p_plot[:,iplot]);     # Display snap-shot of P(x)
+        plt.plot(x,p_plot[:,iplot])     # Display snap-shot of P(x)
         plt.xlabel('x');   plt.ylabel('P(x,t)')
         plt.title('Finished %d of %d iterations' % (iter,max_iter))
         plt.axis(axisV);  plt.show()

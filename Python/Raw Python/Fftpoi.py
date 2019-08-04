@@ -4,6 +4,7 @@
 # Set up configuration options and special features
 import numpy as np
 import matplotlib.pyplot as plt
+from extra.input_parser import arrayParser
 
 
 #* Initialize parameters (system size, grid spacing, etc.)
@@ -13,24 +14,24 @@ L = 1.    # System size
 h = L/N   # Grid spacing for periodic boundary conditions
 x = (np.arange(N) + 1./2)*h    # Coordinates  of grid points
 y = np.copy(x)                 # Square grid
-print 'System is a square of length ', L
+print('System is a square of length ', L)
 
 #* Set up charge density rho(i,j) 
-rho = np.zeros((N,N));  # Initialize charge density to zero
-M = input('Enter number of line charges: ')
+rho = np.zeros((N,N))  # Initialize charge density to zero
+M = int(input('Enter number of line charges: '))
 for i in range(M) :
-    print '  For charge #', i
-    r = input('Enter position [x, y]: ') 
+    print('  For charge #', i)
+    r = arrayParser(input('Enter position [x, y] without square brackets: '))
     ii=int(r[0]/h + 0.5)    # Place charge at nearest
     jj=int(r[1]/h + 0.5)    # grid point
-    q = input('Enter charge density: ') 
+    q = float(input('Enter charge density: '))
     rho[ii,jj] += q/h**2
 
 #* Compute matrix P
 cx = np.cos( (2*np.pi/N) * np.arange(N) )
 cy = np.copy(cx)
 numerator = -h**2/(2.*eps0)
-tinyNumber = 1e-20;  # Avoids division by zero
+tinyNumber = 1e-20  # Avoids division by zero
 P = np.empty((N,N))
 for i in range(N) :
     for j in range(N) :
@@ -39,8 +40,8 @@ for i in range(N) :
 #* Compute potential using MFT method
 rhoT = np.fft.fft2(rho)    # Transform rho into wavenumber domain
 phiT = rhoT * P            # Computing phi in the wavenumber domain
-phi = np.fft.ifft2(phiT);  # Inv. transf. phi into the coord. domain
-phi = np.real(phi);        # Clean up imaginary part due to round-off
+phi = np.fft.ifft2(phiT)   # Inv. transf. phi into the coord. domain
+phi = np.real(phi)         # Clean up imaginary part due to round-off
 
 #* Compute electric field as E = - grad phi
 [Ex, Ey] = np.gradient(np.flipud(np.rot90(phi))) 

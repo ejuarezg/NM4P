@@ -7,16 +7,16 @@ import matplotlib.pyplot as plt
 
 
 #* Initialize parameters (time step, grid spacing, etc.).
-tau = input('Enter time step: ')
-N = input('Enter the number of grid points: ')
+tau = float(input('Enter time step: '))
+N = int(input('Enter the number of grid points: '))
 L = 1.        # The system extends from x=-L/2 to x=L/2
 h = L/(N-1)   # Grid size
 kappa = 1.    # Diffusion coefficient
 coeff = kappa*tau/h**2
 if coeff < 0.5 :
-    print 'Solution is expected to be stable'
+    print('Solution is expected to be stable')
 else:
-    print 'WARNING: Solution is expected to be unstable'
+    print('WARNING: Solution is expected to be unstable')
 
 
 #* Set initial and boundary conditions.

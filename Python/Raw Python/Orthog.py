@@ -3,10 +3,11 @@
 
 # Set up configuration options and special features
 import numpy as np
+from extra.input_parser import arrayParser
 
 #* Initialize the vectors a and b
-a = np.array(input('Enter the first vector: '))
-b = np.array(input('Enter the second vector: '))
+a = arrayParser(input('Enter the first vector without square brackets: '))
+b = arrayParser(input('Enter the second vector without square brackets: '))
 
 #* Evaluate the dot product as sum over products of elements
 a_dot_b = 0.
@@ -15,8 +16,8 @@ for i in range(3):
 
 #* Print dot product and state whether vectors are orthogonal
 if a_dot_b == 0:
-    print 'Vectors are orthogonal'
+    print('Vectors are orthogonal')
 else:
-    print 'Vectors are NOT orthogonal'
-    print 'Dot product = ' , a_dot_b
+    print('Vectors are NOT orthogonal')
+    print('Dot product = ' , a_dot_b)
 
