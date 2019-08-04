@@ -6,10 +6,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #* Set initial position and velocity of the baseball
-y0 = input('Enter initial height (meters): ')   
+y0 = float(input('Enter initial height (meters): '))
 r0 = np.array([0, y0])      # Initial vector position
-speed = input('Enter initial speed (m/s): ')
-theta = input('Enter initial angle (degrees): ') 
+speed = float(input('Enter initial speed (m/s): '))
+theta = float(input('Enter initial angle (degrees): '))
 v0 = np.array([speed * np.cos(theta*np.pi/180), 
       speed * np.sin(theta*np.pi/180)])      # Initial velocity
 r = np.copy(r0)   # Set initial position 
@@ -20,7 +20,7 @@ Cd = 0.35      # Drag coefficient (dimensionless)
 area = 4.3e-3  # Cross-sectional area of projectile (m^2)
 grav = 9.81    # Gravitational acceleration (m/s^2)
 mass = 0.145   # Mass of projectile (kg)
-airFlag = input('Air resistance? (Yes:1, No:0): ')
+airFlag = int(input('Air resistance? (Yes:1, No:0): '))
 if airFlag == 0 :
     rho = 0.      # No air resistance
 else:
@@ -28,7 +28,7 @@ else:
 air_const = -0.5*Cd*rho*area/mass   # Air resistance constant
 
 #* Loop until ball hits ground or max steps completed
-tau = input('Enter timestep, tau (sec): ')   # (sec)
+tau = float(input('Enter timestep, tau (sec): '))   # (sec)
 maxstep = 1000    # Maximum number of steps
 xplot = np.empty(maxstep);  yplot = np.empty(maxstep)
 xNoAir = np.empty(maxstep); yNoAir = np.empty(maxstep)
@@ -57,8 +57,8 @@ for istep in range(maxstep):
         break                   # Break out of the for loop
 
 #* Print maximum range and time of flight
-print 'Maximum range is', r[0], 'meters' 
-print 'Time of flight is', laststep*tau , ' seconds' 
+print('Maximum range is', r[0], 'meters')
+print('Time of flight is', laststep*tau , ' seconds')
 
 #* Graph the trajectory of the baseball
 # Mark the location of the ground by a straight line
