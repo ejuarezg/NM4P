@@ -1,5 +1,6 @@
 # General files and folders
 **/.idea
+**/__pycache__
 
 # Windows image file caches
 Thumbs.db
