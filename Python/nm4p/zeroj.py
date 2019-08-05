@@ -1,5 +1,5 @@
 import numpy as np
-from nm4p.bess import bess
+from bess import bess
 
 def zeroj( m_order, n_zero) :
     """Zeros of the Bessel function J(x)
