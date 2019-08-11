@@ -4,7 +4,7 @@
 # Set up configuration options and special features
 import numpy as np
 import matplotlib.pyplot as plt
-from extra.input_parser import arrayParser
+from nm4p.input_parser import arrayParser
 
 def intrpf(xi,x,y):
     """Function to interpolate between data points

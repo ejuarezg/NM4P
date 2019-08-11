@@ -3,7 +3,7 @@
 
 # Set up configuration options and special features
 import numpy as np
-from extra.input_parser import arrayParser
+from nm4p.input_parser import arrayParser
 
 #* Initialize the vectors a and b
 a = arrayParser(input('Enter the first vector without square brackets: '))

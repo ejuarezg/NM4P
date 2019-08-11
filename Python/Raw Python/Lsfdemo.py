@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 from nm4p.linreg import linreg
 from nm4p.pollsf import pollsf
-from extra.input_parser import arrayParser
+from nm4p.input_parser import arrayParser
 
 #* Initialize data to be fit. Data is quadratic plus random number.
 print('Curve fit data is created using the quadratic')

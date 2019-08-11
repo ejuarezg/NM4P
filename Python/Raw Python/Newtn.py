@@ -4,7 +4,7 @@
 # Set up configuration options and special features
 import numpy as np
 import matplotlib.pyplot as plt
-from extra.input_parser import arrayParser
+from nm4p.input_parser import arrayParser
 
 # Define the function f(x,a) used for root finding
 def fnewt(x,a):
