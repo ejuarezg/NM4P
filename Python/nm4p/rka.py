@@ -1,5 +1,5 @@
 import numpy as np
-from rk4 import rk4
+from .rk4 import rk4
 
 def rka(x,t,tau,err,derivsRK,param):
     """Adaptive Runge-Kutta routine
